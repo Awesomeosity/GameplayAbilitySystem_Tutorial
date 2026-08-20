@@ -9,11 +9,15 @@
 
 #include "AuraCharacterBase.generated.h"
 
+class UGameplayAbility;
 class UGameplayEffect;
 class USkeletalMeshComponent;
 class UAbilitySystemComponent;
 class UAttributeSet;
 
+/**
+ * Base character class.
+ */
 UCLASS(Abstract)
 class AURA_API AAuraCharacterBase : public ACharacter, public IAbilitySystemInterface, public ICombatInterface
 {
@@ -32,6 +36,7 @@ public:
 	
 	// ICombatInterface functions
 	virtual int32 GetPlayerLevel() const override;
+	virtual FVector GetWeaponSocketLocation() const override;
 	// ICombatInterface END
 	
 protected:
@@ -63,4 +68,14 @@ protected:
 	
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
 	TSubclassOf<UGameplayEffect> InitialVitalAttributes;
+	
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Weapon")
+	FName WeaponTipSocketName;
+	
+	UFUNCTION()
+	void AddCharacterAbilities();
+	
+private:
+	UPROPERTY(EditAnywhere, Category = "Abilities")
+	TArray<TSubclassOf<UGameplayAbility>> StartingAbilities;
 };

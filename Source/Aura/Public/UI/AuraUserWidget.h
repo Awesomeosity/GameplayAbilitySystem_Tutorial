@@ -7,7 +7,8 @@
 #include "AuraUserWidget.generated.h"
 
 /**
- * 
+ * Base class for any Aura-specific widgets.
+ * Handles assignment of controllers.
  */
 UCLASS()
 class AURA_API UAuraUserWidget : public UUserWidget

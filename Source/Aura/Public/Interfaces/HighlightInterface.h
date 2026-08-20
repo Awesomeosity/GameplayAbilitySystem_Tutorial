@@ -14,7 +14,7 @@ class UHighlightInterface : public UInterface
 };
 
 /**
- * 
+ * Controls how enemies respond to being highlighted.
  */
 class AURA_API IHighlightInterface
 {

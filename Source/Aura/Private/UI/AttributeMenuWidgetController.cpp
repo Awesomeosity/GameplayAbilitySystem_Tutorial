@@ -3,10 +3,7 @@
 
 #include "UI/AttributeMenuWidgetController.h"
 
-#include "KnownGameplayTags.h"
 #include "AbilitySystem/AuraAttributeSet.h"
-#include "Chaos/Character/CharacterGroundConstraintContainer.h"
-#include "Chaos/Deformable/MuscleActivationConstraints.h"
 
 void UAttributeMenuWidgetController::BroadcastInitialValues()
 {

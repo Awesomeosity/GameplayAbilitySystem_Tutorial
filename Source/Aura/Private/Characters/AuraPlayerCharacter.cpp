@@ -44,6 +44,7 @@ void AAuraPlayerCharacter::PossessedBy(AController* NewController)
 	Super::PossessedBy(NewController);
 
 	SetUpAbilitySystemComp();
+	AddCharacterAbilities();
 }
 
 int32 AAuraPlayerCharacter::GetPlayerLevel() const

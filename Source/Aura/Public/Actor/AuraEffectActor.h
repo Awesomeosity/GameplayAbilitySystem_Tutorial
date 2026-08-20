@@ -9,6 +9,9 @@
 
 class UGameplayEffect;
 
+/**
+ * This applies a given effect to an actor, whose trigger conditions can be defined in Blueprints.
+ */
 UCLASS()
 class AURA_API AAuraEffectActor : public AActor
 {

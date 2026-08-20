@@ -40,7 +40,7 @@ struct FWidgetControllerParams
 };
 
 /**
- * 
+ * Base Controller for widgets, connecting any updates to stats on the backend to the frontend.
  */
 UCLASS(Blueprintable)
 class AURA_API UAuraWidgetController : public UObject

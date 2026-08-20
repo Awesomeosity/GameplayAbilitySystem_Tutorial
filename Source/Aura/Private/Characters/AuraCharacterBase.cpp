@@ -4,6 +4,7 @@
 #include "Characters/AuraCharacterBase.h"
 
 #include "AbilitySystemComponent.h"
+#include "AbilitySystem/Aura_AbilitySystemComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 
 // Sets default values
@@ -35,6 +36,14 @@ int32 AAuraCharacterBase::GetPlayerLevel() const
 	return ICombatInterface::GetPlayerLevel();
 }
 
+FVector AAuraCharacterBase::GetWeaponSocketLocation() const
+{
+	if (WeaponMesh == nullptr)
+		return FVector{};
+	
+	return WeaponMesh->GetSocketLocation(WeaponTipSocketName);
+}
+
 void AAuraCharacterBase::SetUpAbilitySystemComp()
 {
 }
@@ -58,4 +67,19 @@ void AAuraCharacterBase::InitializeDefaultAttributes() const
 	ApplyEffectToSelf(DefaultPrimaryAttributes);
 	ApplyEffectToSelf(DefaultSecondaryAttributes);
 	ApplyEffectToSelf(InitialVitalAttributes);
+}
+
+void AAuraCharacterBase::AddCharacterAbilities()
+{
+	if (HasAuthority() == false)
+		return;
+	
+	if (AbilitySystemComp == nullptr)
+		return;
+	
+	auto* AuraAbilitySystemComp = Cast<UAura_AbilitySystemComponent>(AbilitySystemComp);
+	if (AuraAbilitySystemComp == nullptr)
+		return;
+	
+	AuraAbilitySystemComp->AddCharacterAbilities(StartingAbilities);
 }

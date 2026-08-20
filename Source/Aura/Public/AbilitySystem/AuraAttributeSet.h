@@ -35,7 +35,7 @@ template<class T>
 using TAttributeFuncPtr = typename TBaseStaticDelegateInstance<T, FDefaultDelegateUserPolicy>::FFuncPtr;
 
 /**
- * 
+ * Gameplay Attribute Sets define logically-connected groups of Gameplay Attributes.
  */
 UCLASS()
 class AURA_API UAuraAttributeSet : public UAttributeSet

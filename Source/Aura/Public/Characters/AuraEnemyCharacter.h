@@ -8,7 +8,7 @@
 #include "AuraEnemyCharacter.generated.h"
 
 /**
- * 
+ * Enemy characters 
  */
 UCLASS()
 class AURA_API AAuraEnemyCharacter : public AAuraCharacterBase, public IHighlightInterface

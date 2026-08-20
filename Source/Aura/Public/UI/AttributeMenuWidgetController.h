@@ -11,7 +11,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FAttributeChangedSignature, const FA
 
 class UAttributeInfo;
 /**
- * 
+ * Drives updates from the game to the Attribute Menu.
  */
 UCLASS()
 class AURA_API UAttributeMenuWidgetController : public UAuraWidgetController

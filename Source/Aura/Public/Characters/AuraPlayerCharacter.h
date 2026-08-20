@@ -10,7 +10,7 @@ class UCameraComponent;
 class USpringArmComponent;
 
 /**
- * 
+ * The main player character.
  */
 UCLASS()
 class AURA_API AAuraPlayerCharacter : public AAuraCharacterBase
@@ -38,4 +38,5 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Components")
 	TObjectPtr<UCameraComponent> MainCamera;
+	
 };

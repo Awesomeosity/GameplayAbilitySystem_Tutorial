@@ -11,7 +11,7 @@ class UAbilitySystemComponent;
 class UAttributeSet;
 
 /**
- * 
+ * A Player State manages everything about the player that isn't encapsulated by the Controller or Actor itself.
  */
 UCLASS()
 class AURA_API AAuraPlayerState : public APlayerState, public IAbilitySystemInterface
