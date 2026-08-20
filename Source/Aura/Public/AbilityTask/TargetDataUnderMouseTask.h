@@ -6,7 +6,7 @@
 #include "Abilities/Tasks/AbilityTask.h"
 #include "TargetDataUnderMouseTask.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FRetrievedDataSignature, const FVector&, Data);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FRetrievedDataSignature, const FGameplayAbilityTargetDataHandle&, Data);
 
 /**
  * Retrieves some data under the mouse cursor at time of execution.
@@ -26,4 +26,5 @@ public:
 private:
 	virtual void Activate() override;
 	
+	void SendMouseCursorData();
 };
