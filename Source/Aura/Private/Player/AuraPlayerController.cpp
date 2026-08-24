@@ -79,6 +79,8 @@ void AAuraPlayerController::SetupInputComponent()
 		return;
 	
 	AuraInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AAuraPlayerController::Move);
+	AuraInputComponent->BindAction(ShiftAction, ETriggerEvent::Started, this, &AAuraPlayerController::ShiftPressed);
+	AuraInputComponent->BindAction(ShiftAction, ETriggerEvent::Completed, this, &AAuraPlayerController::ShiftReleased);
 	
 	AuraInputComponent->BindAbilityActions(InputConfig, this, &ThisClass::AbilityInputTagPressed, &ThisClass::AbilityInputTagReleased, &ThisClass::AbilityInputTagHeld);
 }
@@ -150,11 +152,9 @@ void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 	
 	if (InputTag == FKnownGameplayTags::Get().Input_LMB)
 	{
-		if (bIsTargeting)
-		{
-			AbilitySystemComp->AbilityInputTagReleased(InputTag);
-		}
-		else
+		AbilitySystemComp->AbilityInputTagReleased(InputTag);
+
+		if (bIsTargeting == false && bShiftKeyDown == false)
 		{
 			if (MouseHoldTime < MinPressTime)
 			{
@@ -195,7 +195,7 @@ void AAuraPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 	
 	if (InputTag == FKnownGameplayTags::Get().Input_LMB)
 	{
-		if (bIsTargeting)
+		if (bIsTargeting || bShiftKeyDown)
 		{
 			AbilitySystemComp->AbilityInputTagHeld(InputTag);
 		}

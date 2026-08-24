@@ -6,7 +6,7 @@
 #include "Actor/AuraProjectile.h"
 #include "Interfaces/CombatInterface.h"
 
-void  UAuraProjectileSpell::FireProjectile()
+void  UAuraProjectileSpell::FireProjectile(const FVector& ProjectileTargetLocation)
 {
 	auto ActivationInfo = GetCurrentActivationInfo();
 	bool bHasAuthority = HasAuthority(&ActivationInfo);
@@ -15,6 +15,11 @@ void  UAuraProjectileSpell::FireProjectile()
 	
 	ICombatInterface* CombatInterface = Cast<ICombatInterface>(GetAvatarActorFromActorInfo());
 	FVector SocketLocation = FVector::ZeroVector;
+	
+	FRotator Rotation = (ProjectileTargetLocation - SocketLocation).Rotation();
+	// Removes up/down angles
+	Rotation.Pitch = 0.f;
+	
 	if (CombatInterface)
 	{
 		SocketLocation = CombatInterface->GetWeaponSocketLocation();
@@ -22,6 +27,7 @@ void  UAuraProjectileSpell::FireProjectile()
 	
 	FTransform SpawnTransform;
 	SpawnTransform.SetLocation(SocketLocation);
+	SpawnTransform.SetRotation(Rotation.Quaternion());
 	
 	AAuraProjectile* Projectile = GetWorld()->SpawnActorDeferred<AAuraProjectile>(ProjectileClass,
 		SpawnTransform, 

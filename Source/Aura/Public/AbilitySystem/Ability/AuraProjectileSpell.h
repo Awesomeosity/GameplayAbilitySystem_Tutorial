@@ -25,7 +25,7 @@ protected:
 	// Launches a projectile specifically from a given Socket's location on a mesh.
 	// From the set location, creates it in the world where it can handle its own movement.
 	UFUNCTION(BlueprintCallable)
-	virtual void FireProjectile();
+	virtual void FireProjectile(const FVector& ProjectileTargetLocation);
 	
 	// FireProjectile uses this defined projectile to launch.
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
