@@ -21,7 +21,18 @@ void UTargetDataUnderMouseTask::Activate()
 	}
 	else
 	{
-		// TODO: Handle server calls.
+		const auto SpecHandle = GetAbilitySpecHandle();
+		const auto ActivationPredictionKey = GetActivationPredictionKey();
+		// Called if we have yet to receive the target data.
+		AbilitySystemComponent.Get()->AbilityTargetDataSetDelegate(SpecHandle, ActivationPredictionKey).AddUObject(this, &UTargetDataUnderMouseTask::OnTargetDataReplicatedCallback);
+		// Called if we have already received the target data.
+		const bool bCalledDelegate = AbilitySystemComponent.Get()->CallReplicatedTargetDataDelegatesIfSet(SpecHandle, ActivationPredictionKey);
+		
+		// Now if we're waiting on some player data that is incoming, make us wait for it.
+		if (bCalledDelegate == false)
+		{
+			SetWaitingOnRemotePlayerData();
+		}
 	}
 }
 
@@ -54,4 +65,15 @@ void UTargetDataUnderMouseTask::SendMouseCursorData()
 		MouseLocationData.Broadcast(DataHandle);
 	}
 	
+}
+
+void UTargetDataUnderMouseTask::OnTargetDataReplicatedCallback(const FGameplayAbilityTargetDataHandle& DataHandle,
+	FGameplayTag ActivationTag)
+{
+	AbilitySystemComponent->ConsumeClientReplicatedTargetData(GetAbilitySpecHandle(), GetActivationPredictionKey());
+	if (ShouldBroadcastAbilityTaskDelegates())
+	{
+		MouseLocationData.Broadcast(DataHandle);
+	}
+
 }
